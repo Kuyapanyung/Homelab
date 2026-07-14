@@ -2,7 +2,7 @@
 
 ## Objective
 
-Deploy an Ubuntu Server virtual machine on Proxmox to serve as a Linux client for networking practice, Linux administration, and future homelab services.
+Deploy an Ubuntu Server virtual machine on Proxmox VE to serve as a Linux server for networking practice, Linux administration, SSH management, and future homelab services.
 
 ---
 
@@ -40,11 +40,11 @@ Created the initial administrator account during installation.
 
 ---
 
-## Network Connectivity Verification
+# Network Connectivity Verification
 
 After completing the installation, I verified the VM's network connectivity.
 
-### Initial Test
+## Initial Test
 
 ```bash
 ping 8.8.8.8
@@ -56,7 +56,7 @@ Result:
 ping: connect: Network is unreachable
 ```
 
-Next, I tested DNS resolution:
+Next, I tested DNS resolution.
 
 ```bash
 ping google.com
@@ -68,9 +68,11 @@ Result:
 ping: google.com: Temporary failure in name resolution
 ```
 
-### After Network Configuration
+---
 
-After resolving the network configuration, I tested again:
+## After Network Configuration
+
+After correcting the network configuration, I tested again.
 
 ```bash
 ping google.com
@@ -83,17 +85,121 @@ Result:
 0% packet loss
 ```
 
-This confirmed that:
+This confirmed:
 
-- Internet connectivity was working.
+- Internet connectivity was restored.
 - DNS name resolution was functioning correctly.
 
 ![Network Connectivity Verification](../screenshots/ubuntu/ping-google-ubuntu.png)
 
 ---
 
-## Lessons Learned
+# Linux Network Configuration
 
-- Verified network connectivity using ICMP (`ping`).
-- Distinguished between a routing problem (`Network is unreachable`) and a DNS resolution problem (`Temporary failure in name resolution`).
-- Confirmed successful Internet connectivity after correcting the network configuration.
+## Display Network Interfaces
+
+The following command displays all network interfaces and their assigned IP addresses.
+
+```bash
+ip addr
+```
+
+![Ubuntu IP Address](../screenshots/ubuntu/ip-addr-ubuntu.png)
+
+---
+
+## Display Routing Table
+
+The routing table verifies the default gateway and connected networks.
+
+```bash
+ip route
+```
+
+![Ubuntu Routing Table](../screenshots/ubuntu/ip-route-ubuntu.png)
+
+---
+
+## System Information
+
+The `hostnamectl` command displays the hostname, operating system, kernel version, and system architecture.
+
+```bash
+hostnamectl
+```
+
+![Hostname Information](../screenshots/ubuntu/hostnamectl-ubuntu.png)
+
+---
+
+## DNS Configuration
+
+The DNS resolver configuration was verified using:
+
+```bash
+cat /etc/resolv.conf
+```
+
+This confirms which DNS server is being used for hostname resolution.
+
+![DNS Resolver](../screenshots/ubuntu/cat-etc-resolv.conf-ubuntu.png)
+
+---
+
+## Verify Listening Services
+
+The following command lists all listening TCP and UDP ports.
+
+```bash
+ss -tuln
+```
+
+This is useful for verifying active network services.
+
+![Listening Ports](../screenshots/ubuntu/ss-tuln-ubuntu.png)
+
+---
+
+# SSH Configuration
+
+SSH was enabled to allow secure remote administration of the Ubuntu Server.
+
+Connection test:
+
+```bash
+ssh <username>@192.168.99.102
+```
+
+Successful authentication confirmed that the SSH service was operational and reachable over the local network.
+
+![SSH Verification](../screenshots/ubuntu/ssh-ubuntu.png)
+
+---
+
+# Summary
+
+The Ubuntu Server virtual machine was successfully deployed and configured within the Proxmox homelab.
+
+Completed tasks include:
+
+- Ubuntu Server installation
+- LVM storage configuration
+- Administrator account creation
+- Internet connectivity verification
+- DNS verification
+- Network interface verification
+- Routing table verification
+- System information verification
+- SSH configuration and remote access testing
+
+---
+
+# Lessons Learned
+
+- Verified network interfaces using `ip addr`.
+- Verified routing information using `ip route`.
+- Verified hostname and operating system details using `hostnamectl`.
+- Verified DNS configuration using `/etc/resolv.conf`.
+- Used `ss -tuln` to inspect listening services.
+- Successfully configured SSH for remote administration.
+- Distinguished between routing failures and DNS resolution failures during troubleshooting.
