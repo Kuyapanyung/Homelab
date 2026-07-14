@@ -1,3 +1,3 @@
-## Homelab Topology
+# Homelab Topology
 
-![Homelab Topology](diagrams/homelab-topology.png)
+![Homelab Topology](homelab-topology.png)
