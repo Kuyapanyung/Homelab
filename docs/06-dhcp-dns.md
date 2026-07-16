@@ -2,56 +2,92 @@
 
 ## Objective
 
-Verify that pfSense successfully provides DHCP services, DNS resolution, and network connectivity to the Ubuntu Server and Alpine Linux virtual machines.
+Configure and verify DHCP and DNS services using pfSense for multiple Linux virtual machines across the homelab network.
 
 ---
 
 # DHCP Configuration
 
-## IP Address Assignment
+## DHCP Server
 
-Both virtual machines successfully obtained IP addresses from the pfSense DHCP server.
+pfSense was configured to provide DHCP services for the configured VLANs and client devices.
 
-| Virtual Machine | IP Address |
-|-----------------|------------|
-| Ubuntu Server | 192.168.99.102 |
-| Alpine Linux | 192.168.99.103 |
+### Management VLAN
 
-![Static IP Assignment](../screenshots/network/Static-IP-Ubuntu-Alpine.png)
+![Management VLAN DHCP](../screenshots/pfsense/pfsense-management-vlan-dhcp.png)
+
+---
+
+### Server VLAN
+
+![Server VLAN DHCP](../screenshots/pfsense/pfsense-server-vlan-dhcp.png)
+
+---
+
+### Client VLAN
+
+![Client VLAN DHCP](../screenshots/pfsense/pfsense-clients-vlan-dhcp.png)
+
+---
+
+## Linux Client DHCP Verification
+
+The following virtual machines successfully received IP addresses from the pfSense DHCP server.
+
+### Ubuntu Desktop
+
+![Ubuntu DHCP](../screenshots/pfsense/pfsense-ubuntu-vlan-dhcp.png)
+
+---
+
+### Alpine Linux
+
+![Alpine DHCP](../screenshots/pfsense/pfsense-alpine-vlan-dhcp.png)
+
+---
+
+### Lubuntu Desktop
+
+![Lubuntu DHCP](../screenshots/pfsense/pfsense-lubuntu-vlan-dhcp.png)
 
 ---
 
 # Network Connectivity Verification
 
-## VM-to-VM Communication
+After DHCP configuration, connectivity between the Linux virtual machines was verified.
 
-To verify Layer 3 connectivity, each virtual machine successfully communicated with the other using ICMP.
-
-### Ubuntu Server
+### Ubuntu Desktop
 
 ```bash
-ping 192.168.99.103
+ping 192.168.99.11
+ping 192.168.99.12
 ```
 
 ### Alpine Linux
 
 ```bash
-ping 192.168.99.102
+ping 192.168.99.10
+ping 192.168.99.12
 ```
 
-Results:
+### Lubuntu Desktop
+
+```bash
+ping 192.168.99.10
+ping 192.168.99.11
+```
+
+All tests completed successfully with:
 
 - 0% packet loss
 - Successful ICMP replies
 - Stable network latency
 
-![VM Connectivity](../screenshots/network/ping-ubuntu-alpine-static-IP.png)
-
 ---
 
 # DNS Verification
 
-Verified DNS name resolution from both Ubuntu Server and Alpine Linux.
+Internet connectivity and DNS resolution were verified from each Linux virtual machine.
 
 ```bash
 ping google.com
@@ -60,10 +96,8 @@ ping google.com
 Successful replies confirmed:
 
 - Internet connectivity
-- Proper DNS resolution
-- Correct gateway configuration
-
-![Internet Connectivity](../screenshots/network/ping-google-ubuntu-alpine.png)
+- DNS resolution
+- Correct default gateway configuration
 
 ---
 
@@ -72,19 +106,19 @@ Successful replies confirmed:
 The pfSense firewall successfully provided:
 
 - DHCP address assignment
-- Default gateway configuration
 - DNS resolution
+- Default gateway configuration
 - Internet connectivity
-- Communication between virtual machines
+- Communication between Ubuntu Desktop, Alpine Linux, and Lubuntu Desktop
 
-This verified that the virtual network was functioning correctly.
+The virtual network was operating correctly after DHCP and DNS configuration.
 
 ---
 
 # Lessons Learned
 
-- Verified DHCP address assignment from pfSense.
-- Confirmed successful DNS resolution using `ping google.com`.
-- Verified Layer 3 connectivity using ICMP.
-- Confirmed communication between Ubuntu Server and Alpine Linux.
-- Validated the overall virtual network configuration.
+- Configured DHCP services using pfSense.
+- Verified DHCP lease assignment for multiple Linux virtual machines.
+- Confirmed DNS resolution using `ping google.com`.
+- Verified communication between Linux virtual machines using ICMP.
+- Validated Internet connectivity through the pfSense gateway.
