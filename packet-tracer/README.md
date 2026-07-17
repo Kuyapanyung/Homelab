@@ -1,39 +1,19 @@
-# Packet Tracer Homelab
+## Cisco Packet Tracer
 
-## Objective
+Before implementing configurations in my physical homelab, I first design and validate the network using Cisco Packet Tracer.
 
-This Packet Tracer project represents the logical design of my homelab before implementing it in Proxmox and pfSense.
+This helps me understand networking concepts, test configurations, and reduce deployment errors.
 
-## Network Topology
+### Contents
 
-![Homelab Topology](topology.png)
+- Network topology
+- Home Router configuration
+- pfSense router simulation
+- Switch port configuration
+- VLAN configuration
 
-## Devices
+📁 **Directory:** `packet-tracer/`
 
-- Internet (PT-Cloud)
-- Home Router
-- pfSense Firewall (simulated using Cisco 2911)
-- Cisco 2960 LAN Switch
-- Ubuntu Desktop
-- Alpine Desktop
-- Lubuntu Desktop
-
-## IP Addressing
-
-| Device | IP Address |
-|---------|------------|
-| Home Router | 192.168.1.1/24 |
-| pfSense WAN | 192.168.1.2/24 |
-| pfSense LAN | 192.168.99.1/24 |
-| Ubuntu Desktop | 192.168.99.10/24 |
-| Alpine Desktop | 192.168.99.11/24 |
-| Lubuntu Desktop | 192.168.99.12/24 |
-
-## Purpose
-
-This simulation is used to:
-
-- Plan the homelab network before implementation.
-- Practice routing and IP addressing.
-- Understand network topology and device connectivity.
-- Compare the simulated design with the actual Proxmox-based homelab.
+- [`Packet Tracer Guide`](packet-tracer/packet-tracer-guide.md)
+- [`Network Topology`](packet-tracer/topology.png)
+- [`Packet Tracer Project`](packet-tracer/homelab-network.pkt)
