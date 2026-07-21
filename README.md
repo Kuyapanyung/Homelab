@@ -6,7 +6,7 @@ A hands-on networking homelab built using **Proxmox VE**, **pfSense**, **Ubuntu 
 
 # Current Topology
 
-![Homelab Topology](packet-tracer/topology.png)
+![Homelab Topology](packet-tracer/Homelab-topology-updated.png)
 
 ---
 
